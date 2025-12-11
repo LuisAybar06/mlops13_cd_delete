@@ -22,3 +22,8 @@ variable "routine_id" {
   description = ""
   type = string
 }
+
+variable "service_account" {
+  description = ""
+  type = string
+}
