@@ -12,6 +12,7 @@ jobs:
     env:
       PROJECT_ID: ${{ secrets.GOOGLE_PROJECT }}
       REGION: us-central1
+      IMAGE_REPOSITORY: imagen
       IMAGE_NAME: vertex_pipeline
 
 
@@ -39,9 +40,9 @@ jobs:
         # Configurar Docker para autenticar con Artifact Registry
         gcloud auth configure-docker us-central1-docker.pkg.dev
         # Construir imagen
-        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME:latest ./despliegue_cloud_run
+        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/$IMAGE_REPOSITORY/$IMAGE_NAME:latest ./despliegue_cloud_run
         # Publicar imagen Docker en Artifact Registry
-        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME:latest
+        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/$IMAGE_REPOSITORY/$IMAGE_NAME:latest
 
 
 
@@ -50,7 +51,7 @@ jobs:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }} 
       run: |
         gcloud run jobs deploy run-pipeline-job \
-          --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME \
+          --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/$IMAGE_REPOSITORY/$IMAGE_NAME \
           --region $REGION \
           --service-account cloud-run-sa@$GOOGLE_PROJECT.iam.gserviceaccount.com \
           --set-env-vars PROJECT_ID=mlops13,LOCATION=us-central1,PIPELINE_PATH=gs://mlops13/projectB/pipeline-prediction/pipeline_bigquery.json,SERVICE_ACCOUNT=vertex-process@mlops13.iam.gserviceaccount.com,VALIDA_TABLE=mlops13.github_mlops.census_by_age,INPUT_AGE=60 \
