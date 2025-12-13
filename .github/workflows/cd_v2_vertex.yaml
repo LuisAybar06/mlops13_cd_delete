@@ -35,15 +35,16 @@ jobs:
         # Configurar Docker para autenticar con Artifact Registry
         gcloud auth configure-docker us-central1-docker.pkg.dev
         # Construir imagen
-        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME:latest ./despliegue_cloud_run
+        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME:latest ./despliegue_cloud_run
         # Publicar imagen Docker en Artifact Registry
-        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME:latest
+        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME:latest
+
 
 
     - name: Deploy Cloud Run Job
       run: |
         gcloud run jobs deploy run-pipeline-job \
-          --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME \
+          --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME \
           --region $REGION \
           --service-account cloud-run-sa@${PROJECT_ID}.iam.gserviceaccount.com \
           --set-env-vars PROJECT_ID=${PROJECT_ID},\
