@@ -1,5 +1,5 @@
 PROJECT_ID="mlops13"
-SA="githubtesting@mlops13.iam.gserviceaccount.com"
+SA="github-mlops@mlops13.iam.gserviceaccount.com"
 
 
 cat > custom_bq_role.json <<EOF

@@ -1,0 +1,15 @@
+gcloud builds submit --tag gcr.io/mlops13/pipeline-job-runner
+
+
+
+gcloud run jobs create run-pipeline-job \
+  --image gcr.io/mlops13/pipeline-job-runner \
+  --region us-central1 \
+  --service-account cloud-run-sa@mlops13.iam.gserviceaccount.com \
+  --set-env-vars PROJECT_ID=mlops13,\
+LOCATION=us-central1,\
+PIPELINE_PATH=gs://mlops13/projectB/pipeline-prediction/pipeline_bigquery.json,\
+SERVICE_ACCOUNT=vertex-process@mlops13.iam.gserviceaccount.com,\
+VALIDA_TABLE=mlops13.github_mlops.census_by_age,\
+INPUT_AGE=60
+
