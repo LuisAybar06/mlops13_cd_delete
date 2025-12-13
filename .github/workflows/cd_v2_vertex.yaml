@@ -43,7 +43,7 @@ jobs:
     - name: Deploy Cloud Run Job
       run: |
         gcloud run jobs deploy run-pipeline-job \
-          --image $IMAGE_URI:latest \
+          --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME \
           --region $REGION \
           --service-account cloud-run-sa@${PROJECT_ID}.iam.gserviceaccount.com \
           --set-env-vars PROJECT_ID=${PROJECT_ID},\
