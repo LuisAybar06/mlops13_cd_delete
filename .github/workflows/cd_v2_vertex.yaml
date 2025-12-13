@@ -47,5 +47,5 @@ jobs:
           --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/imagen/$IMAGE_NAME \
           --region $REGION \
           --service-account cloud-run-sa@${PROJECT_ID}.iam.gserviceaccount.com \
-          --set-env-vars PROJECT_ID=mlops13, LOCATION=us-central1, PIPELINE_PATH=gs://mlops13/projectB/pipeline-prediction/pipeline_bigquery.json, SERVICE_ACCOUNT=vertex-process@mlops13.iam.gserviceaccount.com, VALIDA_TABLE=mlops13.github_mlops.census_by_age, INPUT_AGE=60
+          --set-env-vars PROJECT_ID=mlops13,LOCATION=us-central1,PIPELINE_PATH=gs://mlops13/projectB/pipeline-prediction/pipeline_bigquery.json,SERVICE_ACCOUNT=vertex-process@mlops13.iam.gserviceaccount.com,VALIDA_TABLE=mlops13.github_mlops.census_by_age,INPUT_AGE=60
           --quiet
