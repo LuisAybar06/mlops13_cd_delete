@@ -65,7 +65,7 @@ resource "google_bigquery_routine" "cencus_filter_by_age" {
 
   definition_body = <<-SQL
     BEGIN
-      INSERT INTO `trim-odyssey-390415.github3.census_by_age`
+      INSERT INTO `mlops13.github_mlops.census_by_age`
       SELECT age, workclass, occupation
       FROM `bigquery-public-data.ml_datasets.census_adult_income`
       WHERE age < input_age;
