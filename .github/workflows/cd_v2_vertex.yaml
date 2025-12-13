@@ -13,7 +13,7 @@ jobs:
       PROJECT_ID: ${{ secrets.GOOGLE_PROJECT }}
       REGION: us-central1
       IMAGE_NAME: vertex_pipeline
-      IMAGE_URI: us-central1-docker.pkg.dev/${{ secrets.GOOGLE_PROJECT }}/images/vertex_pipeline
+
 
     steps:
     - name: Checkout code
@@ -24,16 +24,21 @@ jobs:
       with:
         project_id: ${{ secrets.GOOGLE_PROJECT }}
         service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        install_components: 'gke-gcloud-auth-plugin'
         export_default_credentials: true
 
-    - name: Configure Docker for Artifact Registry
-      run: |
+    # Construir y publicar la imagen Docker en Artifact Registry
+    - name: build and push the docker image 
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }} 
+      run: | 
+        # Configurar Docker para autenticar con Artifact Registry
         gcloud auth configure-docker us-central1-docker.pkg.dev
+        # Construir imagen
+        docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME:latest ./despliegue_cloud_run
+        # Publicar imagen Docker en Artifact Registry
+        docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/images/$IMAGE_NAME:latest
 
-    - name: Build and push image
-      run: |
-        docker build -t $IMAGE_URI:latest ./despliegue_cloud_run
-        docker push $IMAGE_URI:latest
 
     - name: Deploy Cloud Run Job
       run: |
