@@ -42,7 +42,7 @@ resource "google_bigquery_dataset_iam_binding" "dataset_access_editor" {
 
   role    = "roles/bigquery.dataEditor"
   members = [
-    "serviceAccount:github-mlops@mlops13.iam.gserviceaccount.com"
+    "serviceAccount:vertex-process@mlops13.iam.gserviceaccount.com"
   ]
 }
 
@@ -53,7 +53,7 @@ resource "google_bigquery_dataset_iam_binding" "dataset_access_viewer" {
 
   role    = "roles/bigquery.dataViewer"
   members = [
-    "serviceAccount:github-mlops@mlops13.iam.gserviceaccount.com"
+    "serviceAccount:vertex-process@mlops13.iam.gserviceaccount.com"
   ]
 }
 
