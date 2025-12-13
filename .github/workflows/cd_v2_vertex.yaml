@@ -50,7 +50,7 @@ jobs:
       env:
         GOOGLE_PROJECT: ${{ secrets.GOOGLE_PROJECT }} 
       run: |
-        gcloud run jobs deploy run-pipeline-job \
+        gcloud run jobs deploy run-pipeline-job-v2 \
           --image us-central1-docker.pkg.dev/$GOOGLE_PROJECT/$IMAGE_REPOSITORY/$IMAGE_NAME \
           --region $REGION \
           --service-account cloud-run-sa@$GOOGLE_PROJECT.iam.gserviceaccount.com \
