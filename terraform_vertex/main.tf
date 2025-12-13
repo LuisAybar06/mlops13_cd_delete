@@ -10,14 +10,6 @@ resource "google_bigquery_dataset" "dataset" {
   location   = var.region
 }
 
-
-
-resource "google_bigquery_dataset" "dataset_v2" {
-  dataset_id = var.dataset_id
-  project    = var.project_id
-  location   = var.region
-}
- 
  
 
 resource "google_bigquery_table" "table1" {
